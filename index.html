@@ -14,19 +14,32 @@
 
     <p>ONLYOFFICE plugin is running.</p>
 
-    <button onclick="insertText()">
+    <button id="insertBtn">
         Insert Hello
     </button>
 
     <script>
-        function insertText() {
-            console.log("Insert Hello clicked");
 
-            window.Asc.plugin.executeMethod(
-                "PasteText",
-                ["Hello from Contractzy Plugin!"]
-            );
-        }
+        // REQUIRED by the ONLYOFFICE plugin runtime
+        window.Asc.plugin.init = function () {
+            console.log("Contractzy POC initialized");
+
+            const button = document.getElementById("insertBtn");
+
+            if (button) {
+                button.onclick = function () {
+
+                    console.log("Insert Hello clicked");
+
+                    window.Asc.plugin.executeMethod(
+                        "PasteText",
+                        ["Hello from Contractzy Plugin!"]
+                    );
+
+                };
+            }
+        };
+
     </script>
 
 </body>
