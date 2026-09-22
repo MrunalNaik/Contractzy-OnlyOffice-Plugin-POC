@@ -12,7 +12,9 @@
       "isViewer": false,
       "EditorsSupport": [
         "word"
-      ]
+      ],
+      "type": "panel",
+      "isActivated": true
     }
   ]
 }
