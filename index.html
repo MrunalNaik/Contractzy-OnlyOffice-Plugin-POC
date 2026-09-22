@@ -25,51 +25,60 @@
     <p id="selectedText">Nothing selected</p>
 
     <script>
-        window.Asc.plugin.init = function () {
+        let latestSelectedText = "";
+        let handlersInitialized = false;
+
+        window.Asc.plugin.init = function (text) {
 
             console.log("Contractzy POC initialized");
 
-            document
-                .getElementById("insertBtn")
-                .addEventListener("click", function () {
+            latestSelectedText = text || "";
 
-                    console.log("Insert Hello clicked");
+            if (handlersInitialized) {
+                return;
+            }
 
-                    window.Asc.plugin.executeMethod(
-                        "PasteText",
-                        ["Hello from Contractzy Plugin!"]
-                    );
+            handlersInitialized = true;
 
-                });
+            document.getElementById("insertBtn").addEventListener("click", function () {
 
-            document
-                .getElementById("getSelectedTextBtn")
-                .addEventListener("click", function () {
+                console.log("Insert Hello clicked");
 
-                    window.Asc.plugin.executeMethod(
-                        "GetSelectedText",
-                        [{
-                            "Numbering": false,
-                            "Math": false,
-                            "TableCellSeparator": "\n",
-                            "ParaSeparator": "\n",
-                            "TabSymbol": "\t"
-                        }],
-                        function (text) {
+                window.Asc.plugin.executeMethod(
+                    "PasteText",
+                    ["Hello from Contractzy Plugin!"]
+                );
 
-                            const selectedText = text || "Nothing selected";
+            });
 
-                            console.log("Selected text:", selectedText);
-                            document.getElementById("selectedText").textContent = selectedText;
+            document.getElementById("getSelectedTextBtn").addEventListener("click", function () {
 
-                        }
-                    );
+                window.Asc.plugin.executeMethod(
+                    "GetSelectedText",
+                    [{
+                        "Numbering": false,
+                        "Math": false,
+                        "TableCellSeparator": "\n",
+                        "ParaSeparator": "\n",
+                        "TabSymbol": "\t"
+                    }],
+                    function (text) {
 
-                });
+                        const selectedText = text || latestSelectedText || "Nothing selected";
+
+                        console.log("Selected text:", selectedText);
+                        document.getElementById("selectedText").textContent = selectedText;
+
+                    }
+                );
+
+            });
         };
 
         window.Asc.plugin.button = function (id) {
-            console.log("Button clicked:", id);
+            if (id === -1) {
+                window.Asc.plugin.executeCommand("close", "");
+            }
         };
     </script>
 
