@@ -13,16 +13,11 @@
         Insert Hello
     </button>
 
+    <!-- ONLYOFFICE Plugin API -->
     <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
 
-    <script>
-        function insertText() {
-            window.Asc.plugin.executeMethod(
-                "PasteText",
-                ["Hello from Contractzy Plugin!"]
-            );
-        }
-    </script>
+    <!-- Our plugin code -->
+    <script src="./plugin.js"></script>
 
 </body>
 </html>
