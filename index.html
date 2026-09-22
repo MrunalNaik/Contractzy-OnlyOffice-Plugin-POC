@@ -12,22 +12,20 @@
 
     <h2>Contractzy POC</h2>
 
-    <p>ONLYOFFICE plugin is running.</p>
+    <p>Plugin is running!</p>
 
     <button id="insertBtn">
         Insert Hello
     </button>
 
     <script>
-
-        // REQUIRED by the ONLYOFFICE plugin runtime
         window.Asc.plugin.init = function () {
+
             console.log("Contractzy POC initialized");
 
-            const button = document.getElementById("insertBtn");
-
-            if (button) {
-                button.onclick = function () {
+            document
+                .getElementById("insertBtn")
+                .addEventListener("click", function () {
 
                     console.log("Insert Hello clicked");
 
@@ -36,10 +34,8 @@
                         ["Hello from Contractzy Plugin!"]
                     );
 
-                };
-            }
+                });
         };
-
     </script>
 
 </body>
