@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contractzy POC</title>
+</head>
+
+<body>
+
+    <h2>Contractzy POC</h2>
+
+    <button onclick="insertText()">
+        Insert Hello
+    </button>
+
+    <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
+
+    <script>
+        function insertText() {
+            window.Asc.plugin.executeMethod(
+                "PasteText",
+                ["Hello from Contractzy Plugin!"]
+            );
+        }
+    </script>
+
+</body>
+</html>
