@@ -18,6 +18,12 @@
         Insert Hello
     </button>
 
+    <button id="getSelectedTextBtn">
+        Get Selected Text
+    </button>
+
+    <p id="selectedText">Nothing selected</p>
+
     <script>
         window.Asc.plugin.init = function () {
 
@@ -35,6 +41,35 @@
                     );
 
                 });
+
+            document
+                .getElementById("getSelectedTextBtn")
+                .addEventListener("click", function () {
+
+                    window.Asc.plugin.executeMethod(
+                        "GetSelectedText",
+                        [{
+                            "Numbering": false,
+                            "Math": false,
+                            "TableCellSeparator": "\n",
+                            "ParaSeparator": "\n",
+                            "TabSymbol": "\t"
+                        }],
+                        function (text) {
+
+                            const selectedText = text || "Nothing selected";
+
+                            console.log("Selected text:", selectedText);
+                            document.getElementById("selectedText").textContent = selectedText;
+
+                        }
+                    );
+
+                });
+        };
+
+        window.Asc.plugin.button = function (id) {
+            console.log("Button clicked:", id);
         };
     </script>
 
