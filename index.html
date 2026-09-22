@@ -24,6 +24,11 @@
 
     <p>Plugin is running!</p>
 
+    <p>
+        <strong>Contractzy Contract ID:</strong>
+        <span id="contractId">Not received</span>
+    </p>
+
     <button id="insertBtn">
         Insert Hello
     </button>
@@ -32,13 +37,37 @@
         Get Selected Text
     </button>
 
+    <button id="inspectSelectionBtn">
+        Inspect Selection
+    </button>
+
+    <pre id="selectionInfo">Selection information will appear here.</pre>
+
     <h3>Selected Contract Content Preview</h3>
 
     <div id="selectedText">Nothing selected</div>
 
     <script>
+        let contractId = null;
         let latestSelectedText = "";
         let handlersInitialized = false;
+
+        // Expected host message: { type: "contractzyContext", contractId: "..." }
+        window.Asc.plugin.onExternalPluginMessage = function (data) {
+            if (!data || data.type !== "contractzyContext") {
+                return;
+            }
+
+            if (typeof data.contractId !== "string" || !data.contractId.trim()) {
+                return;
+            }
+
+            contractId = data.contractId.trim();
+            document.getElementById("contractId").textContent = contractId;
+            console.log("Contractzy context received", {
+                contractId: contractId
+            });
+        };
 
         window.Asc.plugin.init = function (text) {
 
@@ -80,6 +109,32 @@
 
                         console.log("Selected text:", selectedText);
                         document.getElementById("selectedText").textContent = selectedText;
+
+                    }
+                );
+
+            });
+
+            document.getElementById("inspectSelectionBtn").addEventListener("click", function () {
+
+                window.Asc.plugin.executeMethod(
+                    "GetSelectionType",
+                    [],
+                    function (selectionType) {
+
+                        const selectedText = latestSelectedText || "";
+                        const selectionInfo = [
+                            "Editor type: " + window.Asc.plugin.info.editorType,
+                            "Selection type: " + selectionType,
+                            "Selected text length: " + selectedText.length
+                        ].join("\n");
+
+                        console.log("Selection inspection:", {
+                            editorType: window.Asc.plugin.info.editorType,
+                            selectionType: selectionType,
+                            selectedTextLength: selectedText.length
+                        });
+                        document.getElementById("selectionInfo").textContent = selectionInfo;
 
                     }
                 );
