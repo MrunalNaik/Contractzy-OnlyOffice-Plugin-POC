@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Contractzy POC</title>
+
+    <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
 </head>
 
 <body>
@@ -11,12 +14,21 @@
 
     <p>ONLYOFFICE plugin is running.</p>
 
-    <button id="insertBtn">
+    <button onclick="insertText()">
         Insert Hello
     </button>
 
-    <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
-    <script src="./plugin.js"></script>
+    <script>
+        function insertText() {
+            console.log("Insert Hello clicked");
+
+            window.Asc.plugin.executeMethod(
+                "PasteText",
+                ["Hello from Contractzy Plugin!"]
+            );
+        }
+    </script>
 
 </body>
+
 </html>

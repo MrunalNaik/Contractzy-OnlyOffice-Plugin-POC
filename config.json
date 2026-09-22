@@ -1,7 +1,7 @@
 {
   "name": "Contractzy POC",
-  "guid": "asc.{4a6b7f18-7b48-4e5e-abb1-c4498ddcd3ce}",
-  "version": "0.1.0",
+  "guid": "asc.{8f5c2e41-9d73-4a62-b1c8-6e9f24d735ab}",
+  "version": "0.2.0",
   "variations": [
     {
       "description": "Contractzy ONLYOFFICE plugin proof of concept",
@@ -12,9 +12,7 @@
       "isViewer": false,
       "EditorsSupport": [
         "word"
-      ],
-      "type": "panel",
-      "isActivated": true
+      ]
     }
   ]
 }
